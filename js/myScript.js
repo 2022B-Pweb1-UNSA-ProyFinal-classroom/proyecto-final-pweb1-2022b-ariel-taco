@@ -297,3 +297,22 @@ function responseView(response){
   console.log("nuevoMain",nuevoMain);*/
   document.getElementById('main').innerHTML = response ;
 }
+/*
+ * Esta función invoca al CGI delete.pl recibe los datos del artículo a 
+ * borrar como argumentos, la respuesta del CGI debe ser atendida por doList
+ */
+function doDelete(owner, title){
+  console.log('se va a eliminar',owner,title);
+  let url = 'cgi-bin/delete.pl?owner='+owner+'&title='+title;
+  console.log("la url es ",url);
+  var xml;
+  let promise = fetch(url);
+  promise.then(response=>response.text()).then(data=>
+    {
+      xml = (new window.DOMParser()).parseFromString(data, "text/xml");
+      console.log("esto se eliminar",xml);
+      doList() ;
+    }).catch(error=>{
+      console.log('Error :', error);
+    });
+}
