@@ -363,3 +363,28 @@ function responseEdit(xml){
                  <button onclick = "doList()">Cancelar</button>`;
   document.getElementById('main').innerHTML = formhtml;
 }
+/*
+ * Esta función recibe el título del artículo y con la variable userKey y 
+ * lo llenado en el formulario, invoca a update.pl
+ * La respuesta del CGI debe ser atendida por responseNew
+ */
+function doUpdate(title){
+  let texto = document.getElementById('cuadrotext').value;
+  console.log("es el texto a actualizar",texto);
+  let url1 = 'cgi-bin/update.pl?title='+title+'&text='
+  let textoencode = encodeURIComponent(texto);
+  let url3 = '&owner='+userKey;
+  let urlcomple= url1+textoencode+url3;
+  console.log("url completa",urlcomple);
+  var response;
+  let promise = fetch(urlcomple);
+  promise.then(response=>response.text()).then(data=>
+    {
+      response = (new window.DOMParser()).parseFromString(data, "text/xml");
+      console.log("esto sale",response);
+      responseNew(response);
+    }).catch(error=>{
+      console.log('Error :', error);
+    });
+}
+
