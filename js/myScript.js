@@ -281,3 +281,19 @@ function doView(owner, title){
       console.log('Error :', error);
     });
 }
+/*
+ * Esta función muestra la respuesta del cgi view.pl en el HTML o 
+ * un mensaje de error en caso de algún problema.
+ */
+function responseView(response){
+  console.log("esta data ha pasado",response);  /*Se tien un objto html traducito*/
+  /*let body = response.getElementsByTagName('body'); /*Se hizo pruebas en consola*/
+  /*let tagshtml = body[0].childNodes;  /*esto es un arry de todos los tags de body*/
+  /*console.log("estos son lso tags de body", tagshtml);
+  let nuevoMain = "";
+  for (var i=0;i<tagshtml.length;i++){
+    nuevoMain += tagshtml[i].outerHTML+"\n";
+  }
+  console.log("nuevoMain",nuevoMain);*/
+  document.getElementById('main').innerHTML = response ;
+}
