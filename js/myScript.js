@@ -232,3 +232,33 @@ function doNew(){
     });
 }
 
+/*
+ * Esta función obtiene los datos del artículo que se envían como respuesta
+ * desde el CGI new.pl y los muestra en el HTML o un mensaje de error si
+ * correspondiera
+ */
+function responseNew(response){
+  console.log("function responseNew",response);
+  let articulo = response.getElementsByTagName('title');
+  let text = response.getElementsByTagName('text');
+  let textContent = text[0].textContent;
+  let lengthTextContent = textContent.length;
+  console.log("contenido de text",textContent);
+  console.log(lengthTextContent);
+  var cuerpohtml="";
+  
+  if(lengthTextContent>0){
+    console.log("tama",articulo[0].textContent,text[0].textContent);
+    let titlehtml ="<h1>";
+    titlehtml += articulo[0].textContent+"</h1>";
+    let texthtml = "<p>";
+    texthtml += text[0].textContent+"</p>";
+    cuerpohtml += ""+titlehtml+"\n"+texthtml;
+  }else{
+    console.log("ese dueño no existe")
+    cuerpohtml += "<p>Error, usuario no existe o no lleno todos loca campos</p>";
+  }
+  document.getElementById('main').innerHTML = cuerpohtml;
+
+}
+
