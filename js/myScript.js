@@ -103,3 +103,28 @@ function showCreateAccount(){
 
 }
 
+/* Esta función extraerá los datos ingresados en el formulario de
+ * registro de nuevos usuarios e invocará al CGI register.pl
+ * la respuesta de este CGI será procesada por loginResponse.
+ */
+function doCreateAccount(){
+  let user = document.getElementById('username').value;
+  let firstName = document.getElementById('firstname').value;
+  let lastName = document.getElementById('lastname').value;
+  let password = document.getElementById('password').value;
+  console.log("datos recogidos:",user,firstname,lastname,password);
+  let url = 'cgi-bin/register.pl?userName='+user+'&password='+password+'&firstName='+
+    firstName+'&lastName='+lastName;
+  console.log(url);
+  var xml;
+  let promise = fetch(url);
+  promise.then(response=>response.text()).then(data=>
+    {
+      xml = (new window.DOMParser()).parseFromString(data, "text/xml");
+      console.log(xml);
+      loginResponse(xml) ;
+    }).catch(error=>{
+      console.log('Error :', error);
+    });
+}
+
