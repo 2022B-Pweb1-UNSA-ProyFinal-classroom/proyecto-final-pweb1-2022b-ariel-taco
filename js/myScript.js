@@ -70,3 +70,13 @@ function loginResponse(xml){
     document.getElementById('mensaje').innerHTML = "Datos incorrectos";
   }
 }
+/**
+ * esta función usa la variable userFullName, para actualizar el
+ * tag con id userName en el HTML
+ * termina invocando a las functiones showWelcome y showMenuUserLogged
+ */
+function showLoggedIn(){
+  document.getElementById('userName').innerHTML = userFullName;
+  showWelcome();
+  showMenuUserLogged();
+}
