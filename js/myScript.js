@@ -188,3 +188,21 @@ function showList(xml){
 
 }
 
+/**
+ * Esta función deberá generar un formulario para la creación de un nuevo
+ * artículo, el formulario deberá tener dos botones
+ * - Enviar, que invoca a doNew 
+ * - Cancelar, que invoca doList
+ */
+function showNew(){
+  var formhtml = "";
+  formhtml += `
+             <label>Titulo</label>
+             <input type = "text" id="titulo" name ="titulo" value= ""><br>
+             <label > texto</label>
+             <textarea style = "width:180px; height:150px" id = "cuadrotext" name ="texto"></textarea>          `+`<button onclick ="doNew()">Enviar</button>`+`
+                 <button onclick = "doList()">Cancelar</button>`;
+  document.getElementById('main').innerHTML = formhtml;
+}
+
+
