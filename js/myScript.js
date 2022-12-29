@@ -262,3 +262,22 @@ function responseNew(response){
 
 }
 
+/*
+ * Esta función invoca al CGI view.pl, la respuesta del CGI debe ser
+ * atendida por responseView
+ */
+function doView(owner, title){
+  console.log('se va a visualizar');
+  let url = 'cgi-bin/view.pl?owner='+owner+'&title='+title;
+  console.log("la url es ",url);
+  var response;
+  let promise = fetch(url);
+  promise.then(response=>response.text()).then(data=>
+    {
+      /*response = (new window.DOMParser()).parseFromString(data, "text/html");*/ /*esta linea cambia la respuesta string a un objeto DOM*/
+      console.log("esto sale",data);
+      responseView(data) ;
+    }).catch(error=>{
+      console.log('Error :', error);
+    });
+}
