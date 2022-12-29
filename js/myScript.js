@@ -335,7 +335,31 @@ function doEdit(owner, title){
       console.log('Error :', error);
     });
 }
+/*
+ * Esta función recibe la respuesta del CGI data.pl y muestra el formulario 
+ * de edición con los datos llenos y dos botones:
+ * - Actualizar que invoca a doUpdate
+ * - Cancelar que invoca a doList
+ */
+function responseEdit(xml){
+  console.log ("son tres tags owner, title, text");
+  console.log("vamos a editar",xml);
+  let articles = xml.getElementsByTagName('article');   /*solo hay un articulo, se guarda en array*/
+  let hojasxml= articles[0].childNodes;           /*obtengo todas las hojas de <article>*/
+  console.log(hojasxml.length);
+  let owner = hojasxml[1].textContent;        /*los espacios son considerados un nodos*/
+  let title = hojasxml[3].textContent;
+  let texto =hojasxml[5].textContent;             /*los numeros impares seria los nodos con text*/
+  console.log("orden de las hojas",owner,title,texto);
 
-    });
+  var formhtml = "";
+  formhtml += `
+             <label>Titulo</label>
+             <h1>`+title+`</h1><br>
+             <label > texto</label>
+             <textarea style = "width:180px; height:150px" id = "cuadrotext" name ="texto">`+
+    texto+`</textarea><br>
+             <button onclick ="doUpdate(`+`'`+title+`'`+`)">Actualizar</button>`+`
+                 <button onclick = "doList()">Cancelar</button>`;
+  document.getElementById('main').innerHTML = formhtml;
 }
-
