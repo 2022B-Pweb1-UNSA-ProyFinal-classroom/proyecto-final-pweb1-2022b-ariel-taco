@@ -40,3 +40,33 @@ function doLogin(){
     });
 
 }
+/**
+ * Esta función recibe una respuesta en un objeto XML
+ * Si la respuesta es correcta, recolecta los datos del objeto XML
+ * e inicializa la variable userFullName y userKey (e usuario)
+ * termina invocando a la funcion showLoggedIn.
+ * Si la respuesta es incorrecta, borra los datos del formulario html
+ * indicando que los datos de usuario y contraseña no coinciden.
+ */
+function loginResponse(xml){
+  var usuario = xml.getElementsByTagName('user');
+  var owner = usuario[0].getElementsByTagName('owner');
+  console.log(owner.length);
+  if(owner.length==1){
+    var ownerValue = owner[0].textContent;
+    var firstName = usuario[0].getElementsByTagName('firstName');
+    var firstNameValue = firstName[0].textContent;
+    var lastName = usuario[0].getElementsByTagName('lastName');
+    var lastNameValue = lastName[0].textContent;
+    console.log('datos correctos, ingreso');
+    userFullName = firstNameValue+" "+ lastNameValue;
+    console.log(userFullName);
+    userKey = ownerValue;
+    console.log(userKey);
+    showLoggedIn();
+  }else{
+    console.log('datos, incorrectos');
+    showLogin();
+    document.getElementById('mensaje').innerHTML = "Datos incorrectos";
+  }
+}
