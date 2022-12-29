@@ -205,4 +205,30 @@ function showNew(){
   document.getElementById('main').innerHTML = formhtml;
 }
 
+/*
+ * Esta función invocará new.pl para resgitrar un nuevo artículo
+ * los datos deberán ser extraidos del propio formulario
+ * La acción de respuesta al CGI deberá ser una llamada a la 
+ * función responseNew
+ */
+function doNew(){
+  let title  = document.getElementById('titulo').value;
+  let texto = document.getElementById('cuadrotext').value;
+  console.log("datos recogidos:",title,texto);
+  let url1 = 'cgi-bin/new.pl?title='+title+'&text='
+  let textoencode = encodeURIComponent(texto);
+  let url3 = '&owner='+userKey;
+  let urlcomple= url1+textoencode+url3;
+  console.log(urlcomple)
+  var response;
+  let promise = fetch(urlcomple);
+  promise.then(response=>response.text()).then(data=>
+    {
+      response = (new window.DOMParser()).parseFromString(data, "text/xml");
+      console.log(response);
+      responseNew(response) ;
+    }).catch(error=>{
+      console.log('Error :', error);
+    });
+}
 
