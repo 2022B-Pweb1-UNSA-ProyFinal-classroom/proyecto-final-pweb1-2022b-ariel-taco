@@ -80,3 +80,26 @@ function showLoggedIn(){
   showWelcome();
   showMenuUserLogged();
 }
+/**
+ * Esta función crea el formulario para el registro de nuevos usuarios
+ * el fomulario se mostrará en tag div con id main.
+ * La acción al presionar el bontón de Registrar será invocar a la 
+ * función doCreateAccount
+ * */
+function showCreateAccount(){
+  let formhtml = 
+    `<label>Username</label><br>
+              <input type ="text" id="username" name ="user" ><br>
+              <label>Firstname </label><br>
+              <input type ="text" id="firstname" name ="firstname"><br>
+              <label>Lastname </label><br>
+              <input type ="text" id="lastname" name ="lastname"><br>
+              <label>Password </label><br>
+              <input type ="password" id="password" name ="password"><br>
+              <button onclick ="doCreateAccount()">Registrar</button> 
+              <p id="mensaje" ></p>`;
+  document.getElementById('main').innerHTML = formhtml;
+
+
+}
+
