@@ -316,3 +316,26 @@ function doDelete(owner, title){
       console.log('Error :', error);
     });
 }
+/*
+ * Esta función recibe los datos del articulo a editar e invoca al cgi
+ * article.pl la respuesta del CGI es procesada por responseEdit
+ */
+function doEdit(owner, title){
+  console.log('se va a editarA;',owner,title);
+  let url = 'cgi-bin/article.pl?owner='+owner+'&title='+title;
+  console.log("la url es ",url);
+  var xml;
+  let promise = fetch(url);
+  promise.then(response=>response.text()).then(data=>
+    {
+      xml = (new window.DOMParser()).parseFromString(data, "text/xml");
+      console.log("esto sale",xml);
+      responseEdit(xml) ;
+    }).catch(error=>{
+      console.log('Error :', error);
+    });
+}
+
+    });
+}
+
