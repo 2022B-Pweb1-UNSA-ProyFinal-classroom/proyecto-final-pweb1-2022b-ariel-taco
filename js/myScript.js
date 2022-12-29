@@ -127,4 +127,22 @@ function doCreateAccount(){
       console.log('Error :', error);
     });
 }
-
+/*
+ * Esta función invocará al CGI list.pl usando el nombre de usuario 
+ * almacenado en la variable userKey
+ * La respuesta del CGI debe ser procesada por showList
+ */
+function doList(){
+  console.log("este es el owne que sera enviado al cgi",userKey);
+  let url = 'cgi-bin/list.pl?owner='+userKey;
+  console.log("este cgi se usara",url);
+  let promise = fetch(url);
+  promise.then(response=>response.text()).then(data=>
+    {
+      xml = (new window.DOMParser()).parseFromString(data, "text/xml");
+      console.log(xml);
+      showList(xml);
+    }).catch(error=>{
+      console.log('Error :', error);
+    });
+}
