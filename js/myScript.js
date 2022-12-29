@@ -146,3 +146,45 @@ function doList(){
       console.log('Error :', error);
     });
 }
+/**
+ * Esta función recibe un objeto XML con la lista de artículos de un usuario
+ * y la muestra incluyendo:
+ * - Un botón para ver su contenido, que invoca a doView.
+ * - Un botón para borrarla, que invoca a doDelete.
+ * - Un botón para editarla, que invoca a doEdit.
+ * En caso de que lista de páginas esté vacia, deberá mostrar un mensaje
+ * indicándolo.
+ */
+function showList(xml){
+  console.log("se ingreso a la funcion showListi se recibo",xml);
+  var  articulos = xml.getElementsByTagName('article');
+  var owners = xml.getElementsByTagName('owner');
+  var titulos = xml.getElementsByTagName('title');
+  console.log("articulo",articulos);
+  console.log("tamaño de la coleccion",articulos.length);
+  var numArticulos = articulos.length;
+  var listhtml="";
+  if(numArticulos==0){
+    console.log("no tiene ningun articulo");
+    html = `<p>No tiene articulos</p>
+               `;
+  }else{
+    console.log("si tiene articulos")
+    console.log("esto son",titulos);
+    console.log("primer owner and title",owners[0].textContent,titulos[0].textContent);
+    console.log(typeof(owners[0].textContent));
+    listhtml = "<ol>";
+    for (let i=0; i < numArticulos ; i++){
+      listhtml += "<li>"+titulos[i].textContent+
+        `<button onclick = "doView(`+`'`+owners[i].textContent+`'`+`,`+`'`+ titulos[i].textContent+`'`+`)">View</button>`+
+        `<button onclick = "doDelete(`+`'`+owners[i].textContent+`'`+`,`+`'`+ titulos[i].textContent+`'`+`)">Delete</button>`+
+        `<button onclick = "doEdit(`+`'`+owners[i].textContent+`'`+`,`+`'`+ titulos[i].textContent+`'`+`)">Edit</button>`+
+        "</li> \n";
+    }listhtml += "</ol>";
+
+  }
+
+  document.getElementById('main').innerHTML = listhtml;
+
+}
+
